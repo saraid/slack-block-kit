@@ -26,7 +26,7 @@ module Slack
   end
 end
 
-require_relative 'block/action_block'
+require_relative 'block/actions_block'
 require_relative 'block/context_block'
 require_relative 'block/divider_block'
 require_relative 'block/section_block'

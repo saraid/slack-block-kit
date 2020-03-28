@@ -11,4 +11,5 @@ module Slack
   end
 end
 
+require_relative 'element/button_element'
 require_relative 'element/image_element'

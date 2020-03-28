@@ -3,6 +3,13 @@
 require "bundler/setup"
 require "slack-block-kit"
 
+include Slack::BlockKit::ExecutionContext
+
+def pbpaste
+  require 'json'
+  puts JSON.pretty_generate eval(`pbpaste`).map(&:to_h).yield_self { |h| { blocks: h } }
+end
+
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
 

@@ -19,10 +19,14 @@ module Slack
     #    }
     # This can be copied and pasted into https://api.slack.com/tools/block-kit-builder
     module ExecutionContext
+      ActionsBlock = Block::ActionsBlock
       SectionBlock = Block::SectionBlock
       ContextBlock = Block::ContextBlock
       DividerBlock = Block::DividerBlock
       Text = CompositionObjects::Text
+
+      ButtonElement = Element::ButtonElement
+      ImageElement = Element::ImageElement
 
       Bold = proc { |string| "*#{string}*" }
       Italic = proc { |string| "_#{string}_" }

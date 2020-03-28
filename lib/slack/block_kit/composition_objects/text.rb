@@ -15,11 +15,21 @@ module Slack
             raise ArgumentError, 'type must be `plain_text` or `mrkdwn`' unless object.type
 
             object.text = hash[object.type]
+            object.emoji! if hash[:emoji]
+            object.verbatim! if hash[:verbatim]
           end
         end
 
         def empty?
           text&.empty?
+        end
+
+        def emoji!
+          @emoji = true
+        end
+
+        def verbatim!
+          @verbatim = true
         end
 
         def type=(type)
@@ -41,7 +51,9 @@ module Slack
 
         def to_h
           { type: type,
-            text: text }
+            text: text,
+            emoji: emoji,
+            verbatim: verbatim }.compact
         end
       end
     end

@@ -4,13 +4,14 @@ module Slack
   module BlockKit
     class Block
       class ContextBlock < Block
-        attr_accessor :block_id
         attr_accessor :elements
 
         def self.[](hash)
           new.tap do |object|
             hash[:elements].each(&object.elements.method(:<<))
             raise ArgumentError, 'invalid ContextBlock' unless object.valid?
+
+            object.block_id = hash[:block_id] if hash.key?(:block_id)
           end
         end
 

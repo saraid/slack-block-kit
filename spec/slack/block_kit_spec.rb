@@ -1,6 +1,6 @@
-RSpec.describe Slack::Block::Kit do
+RSpec.describe Slack::BlockKit do
   it "has a version number" do
-    expect(Slack::Block::Kit::VERSION).not_to be nil
+    expect(Slack::BlockKit::VERSION).not_to be nil
   end
 
   it "does something useful" do

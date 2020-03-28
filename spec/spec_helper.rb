@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "slack/block/kit"
+require "slack-block-kit"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

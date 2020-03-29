@@ -10,6 +10,11 @@ def pbpaste
   puts JSON.pretty_generate eval(`pbpaste`).map(&:to_h).yield_self { |h| { blocks: h } }
 end
 
+def to_json(array)
+  require 'json'
+  puts JSON.pretty_generate Array(array).map(&:to_h).yield_self { |h| { blocks: h } }
+end
+
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
 

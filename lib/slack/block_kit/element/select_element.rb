@@ -6,6 +6,10 @@ module Slack
       class SelectElement < Element
         attr_reader :placeholder, :confirm
 
+        def valid?
+          !(@placeholder.nil? || @placeholder.empty?)
+        end
+
         def placeholder=(obj)
           raise TypeError, 'placeholder must be a Text Object' unless obj.is_a?(CompositionObjects::Text)
           raise TypeError, 'placeholder must be plain_text' unless obj.type == :plain_text

@@ -20,11 +20,18 @@ require_relative 'block_kit/element/button_element'
 require_relative 'block_kit/element/date_picker_element'
 require_relative 'block_kit/element/image_element'
 require_relative 'block_kit/element/overflow_element'
+
 require_relative 'block_kit/element/select_element'
 require_relative 'block_kit/element/channels_select_element'
 require_relative 'block_kit/element/conversations_select_element'
 require_relative 'block_kit/element/external_select_element'
 require_relative 'block_kit/element/static_select_element'
 require_relative 'block_kit/element/users_select_element'
+
+require_relative 'block_kit/element/multi_channels_select_element'
+require_relative 'block_kit/element/multi_conversations_select_element'
+require_relative 'block_kit/element/multi_external_select_element'
+require_relative 'block_kit/element/multi_static_select_element'
+require_relative 'block_kit/element/multi_users_select_element'
 
 require_relative 'block_kit/execution_context'

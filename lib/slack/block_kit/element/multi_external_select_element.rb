@@ -3,12 +3,13 @@
 module Slack
   module BlockKit
     class Element
-      class ExternalSelectElement < SelectElement
-        attr_reader :initial_option, :min_query_length
+      class MultiExternalSelectElement < ExternalSelectElement
+        undef_method :initial_option=
+        attr_reader :initial_options, :max_selected_items
 
         def self.[](hash)
           new.tap do |object|
-            object.initial_option = hash[:initial_option] if hash.key?(:initial_option)
+            hash[:initial_options].each(&object.initial_options.method(:<<)) if hash.key?(:initial_options)
 
             object.placeholder = hash.fetch(:placeholder)
             object.confirm = hash[:confirm] if hash.key?(:confirm)
@@ -19,22 +20,21 @@ module Slack
           end
         end
 
-        def initial_option=(obj)
-          raise TypeError, 'initial_option must be a Option Object' unless obj.is_a?(CompositionObjects::Option)
-
-          @initial_option = obj
+        def initialize
+          super
+          @initial_options = TypeRestrictedArray.new(CompositionObjects::Option)
         end
 
-        def min_query_length=(length)
-          raise TypeError, 'min_query_length must be an integer' unless length.respond_to?(:to_int)
+        def max_selected_items=(num)
+          raise TypeError, 'max_selected_items must be an integer' unless num.respond_to?(:to_int)
 
-          @min_query_length = length.to_i
+          @max_selected_items = num.to_i
         end
 
         def to_h
           super.merge(
-            initial_option: initial_option&.to_h,
-            min_query_length: min_query_length || 3
+            initial_options: initial_options&.to_h,
+            max_selected_items: max_selected_items || 1
           ).reject { |_, v| v.nil? || (v.respond_to?(:empty?) && v.empty?) }
         end
       end

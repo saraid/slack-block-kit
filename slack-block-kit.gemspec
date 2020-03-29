@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["saraid216@gmail.com"]
 
   spec.summary       = 'Slack BlockKit Helper'
-  spec.homepage      = 'https://github.com/slack-ruby/slack-block-kit'
+  spec.homepage      = 'https://github.com/saraid/slack-block-kit'
   spec.licenses      = ['MIT']
 
   # Specify which files should be added to the gem when it is released.

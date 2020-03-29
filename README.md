@@ -1,8 +1,6 @@
-# Slack::Block::Kit
+# Slack::BlockKit
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/slack/block/kit`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This is a helper for producing Blocks you'd expect in BlockKit.
 
 ## Installation
 
@@ -22,7 +20,36 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Require the gem using:
+
+```ruby
+require 'slack-block-kit'
+```
+
+Include the execution context DSL:
+
+```ruby
+include Slack::BlockKit::ExecutionContext
+```
+
+Then you can construct your blocks as you want:
+
+```ruby
+require 'slack-ruby-client'
+
+client = Slack::Web::Client.new
+
+blocks = [
+  SectionBlock[text: Text[mrkdwn: "Hello, #{Bold['World!']}"]]
+]
+
+client.chat_postMessage(
+  channel: '#general'
+  blocks: blocks.map(&:to_h)
+)
+```
+
+The current examples that Slack's BlockKit Builder provides have been reproduced under [examples](examples/).
 
 ## Development
 
@@ -32,4 +59,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/slack-block-kit.
+Bug reports and pull requests are welcome on GitHub at https://github.com/saraid/slack-block-kit.

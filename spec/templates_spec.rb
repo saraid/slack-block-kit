@@ -13,7 +13,8 @@ end
 def process_example(num)
   { blocks: JSON.parse(
     Slack::BlockKit::ExecutionContext.module_eval(
-      File.read(ROOT.join("examples/slack_template_#{num}.rb"))
+      File.read(ROOT.join("examples/slack_template_#{num}.rb")),
+      __FILE__, __LINE__
     ).map(&:to_h).to_json, symbolize_names: true
   ) }
 end

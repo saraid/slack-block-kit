@@ -17,6 +17,7 @@ require_relative 'block_kit/composition_objects/text'
 
 require_relative 'block_kit/element'
 require_relative 'block_kit/element/button_element'
+require_relative 'block_kit/element/date_picker_element'
 require_relative 'block_kit/element/image_element'
 require_relative 'block_kit/element/overflow_element'
 require_relative 'block_kit/element/select_element'

@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require "bundler/setup"
 require "slack-block-kit"
 

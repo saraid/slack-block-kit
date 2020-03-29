@@ -9,7 +9,7 @@ module Slack
         def self.[](hash)
           new.tap do |object|
             hash[:elements].each(&object.elements.method(:<<))
-            raise ArgumentError, 'invalid ContextBlock' unless object.valid?
+            raise ArgumentError, 'invalid ActionsBlock' unless object.valid?
 
             object.block_id = hash[:block_id] if hash.key?(:block_id)
           end
@@ -18,7 +18,7 @@ module Slack
         def initialize
           @elements = TypeRestrictedArray.new(
             Element::ButtonElement,
-            #Element::SelectElement,
+            Element::SelectElement,
             Element::OverflowElement,
             #Element::DatePickerElement,
             CompositionObjects::Text

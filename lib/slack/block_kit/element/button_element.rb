@@ -4,8 +4,8 @@ module Slack
   module BlockKit
     class Element
       class ButtonElement < Element
-        attr_reader :text
-        attr_accessor :action_id, :value, :style
+        attr_reader :text, :style
+        attr_accessor :value
 
         def self.[](hash)
           new.tap do |object|
@@ -14,6 +14,8 @@ module Slack
             object.style = hash.fetch(:style) if hash[:style]
             object.value = hash.fetch(:value) if hash[:value]
             object.action_id = hash[:action_id] if hash.key?(:action_id)
+
+            raise ArgumentError, 'invalid ButtonElement' unless object.valid?
           end
         end
 
@@ -38,7 +40,6 @@ module Slack
         def to_h
           super.merge(
             text: text.to_h,
-            action_id: action_id,
             style: style,
             value: value
           ).compact

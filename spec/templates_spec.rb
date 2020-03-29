@@ -20,12 +20,12 @@ end
 
 RSpec.describe 'templates' do
   ('00'..'09').each do |num|
-    it do
-      example = process_example(num)
-      fixture = parse_fixture(num)
+    context "slack_template_#{num}" do
+      let(:example) { process_example(num) }
+      let(:fixture) { parse_fixture(num) }
 
-      example[:blocks].size.times do |i|
-        expect(example[:blocks][i]).to eq(fixture[:blocks][i])
+      process_example(num)[:blocks].size.times do |i|
+        it { expect(example[:blocks][i]).to eq(fixture[:blocks][i]) }
       end
     end
   end

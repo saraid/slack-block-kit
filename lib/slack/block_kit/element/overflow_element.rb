@@ -11,6 +11,8 @@ module Slack
             hash[:options].each(&object.options.method(:<<)) if hash.key?(:options)
             object.confirm = hash.fetch(:confirm) if hash[:confirm]
             object.action_id = hash.fetch(:action_id) if hash[:action_id]
+
+            raise ArgumentError, 'invalid OverflowElement' unless object.valid?
           end
         end
 

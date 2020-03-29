@@ -32,6 +32,7 @@ module Slack
       Text = CompositionObjects::Text
 
       ButtonElement = Element::ButtonElement
+      DatePickerElement = Element::DatePickerElement
       ImageElement = Element::ImageElement
       OverflowElement = Element::OverflowElement
       ConversationsSelectElement = Element::ConversationsSelectElement

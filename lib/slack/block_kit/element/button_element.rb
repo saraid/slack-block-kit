@@ -13,6 +13,7 @@ module Slack
             object.action_id = hash.fetch(:action_id) if hash[:action_id]
             object.style = hash.fetch(:style) if hash[:style]
             object.value = hash.fetch(:value) if hash[:value]
+            object.action_id = hash[:action_id] if hash.key?(:action_id)
           end
         end
 

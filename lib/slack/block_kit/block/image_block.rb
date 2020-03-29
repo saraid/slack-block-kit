@@ -16,9 +16,21 @@ module Slack
         end
 
         def title=(obj)
-          raise TypeError, 'text must be a Text Object' unless obj.is_a?(CompositionObjects::Text)
+          raise TypeError, 'title must be a Text Object' unless obj.is_a?(CompositionObjects::Text)
 
           @title = obj
+        end
+
+        def image_url=(url)
+          raise RangeError, 'image_url is max 3000 characters' unless url.size <= 3000
+
+          @image_url = url
+        end
+
+        def alt_text=(text)
+          raise RangeError, 'alt_text is max 2000 characters' unless text.size <= 2000
+
+          @alt_text = text
         end
 
         def to_h

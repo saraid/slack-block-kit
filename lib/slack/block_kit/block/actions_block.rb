@@ -16,11 +16,17 @@ module Slack
         end
 
         def initialize
-          @elements = TypeRestrictedArray.new(Element, CompositionObjects::Text)
+          @elements = TypeRestrictedArray.new(
+            Element::ButtonElement,
+            #Element::SelectElement,
+            Element::OverflowElement,
+            #Element::DatePickerElement,
+            CompositionObjects::Text
+          )
         end
 
         def valid?
-          !@elements.empty?
+          !@elements.empty? && @elements.size <= 5
         end
 
         def to_h

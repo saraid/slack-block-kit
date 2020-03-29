@@ -1,13 +1,4 @@
-require 'slack-ruby-client'
-require 'slack-block-kit'
-
-client = Slack::Web::Client.new
-client.token = '1234'
-
-include Slack::BlockKit::ExecutionContext
-
-blocks = [
-  SectionBlock[text: Text[mrkdwn: [
+[ SectionBlock[text: Text[mrkdwn: [
     "Hey there :wave: I'm TaskBot. I'm here to help you create and manage tasks in Slack.",
     "There are two ways to quickly create tasks:"
   ]]],
@@ -24,7 +15,9 @@ blocks = [
   ],
   SectionBlock[
     text: Text[mrkdwn: ":heavy_plus_sign: To start tracking your team's tasks, #{Bold['add me to a channel']} and I'll introduce myself. I'm usually added to a team or project channel. Type #{Code['/invite @TaskBot']} from the channel or pick a channel on the right."],
-    # accessory: ConversationsSelectElement
+    accessory: ConversationsSelectElement[
+      placeholder: Text[plain_text: 'Select a channel...', emoji: true]
+    ]
   ],
   DividerBlock[],
   ContextBlock[elements: [
@@ -34,9 +27,3 @@ blocks = [
     ]]
   ]]
 ]
-
-payload = {
-  channel: '#general',
-  blocks: blocks.map(&:to_h) }
-
-client.chat_postMessage(payload)

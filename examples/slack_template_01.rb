@@ -1,13 +1,4 @@
-require 'slack-ruby-client'
-require 'slack-block-kit'
-
-client = Slack::Web::Client.new
-client.token = '1234'
-
-include Slack::BlockKit::ExecutionContext
-
-blocks = [
-  SectionBlock[text: Text[mrkdwn: [
+[ SectionBlock[text: Text[mrkdwn: [
     "You have a new request:",
     Bold[Link['fakeLink.toEmployeeProfile.com', 'Fred Enriquez - New device request']]
   ]]],
@@ -29,9 +20,3 @@ blocks = [
     ]
   ]]
 ]
-
-payload = {
-  channel: '#general',
-  blocks: blocks.map(&:to_h) }
-
-client.chat_postMessage(payload)

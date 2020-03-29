@@ -17,7 +17,7 @@ module Slack
           super.merge(
             image_url: image_url,
             alt_text: alt_text
-          )
+          ).compact
         end
       end
     end

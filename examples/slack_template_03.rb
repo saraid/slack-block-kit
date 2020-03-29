@@ -1,13 +1,4 @@
-require 'slack-ruby-client'
-require 'slack-block-kit'
-
-client = Slack::Web::Client.new
-client.token = '1234'
-
-include Slack::BlockKit::ExecutionContext
-
-blocks = [
-  SectionBlock[
+[ SectionBlock[
     text: Text[plain_text: 'Looks like you have a scheduling conflict with this event:', emoji: true]
   ],
   DividerBlock[],
@@ -64,9 +55,3 @@ blocks = [
   ],
   SectionBlock[text: Text[mrkdwn: Bold[Link['fakelink.ToMoreTimes.com', 'Show more times']]]]
 ]
-
-payload = {
-  channel: '#general',
-  blocks: blocks.map(&:to_h) }
-
-client.chat_postMessage(payload)

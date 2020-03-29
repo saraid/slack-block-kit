@@ -1,23 +1,14 @@
-require 'slack-ruby-client'
-require 'slack-block-kit'
-
-client = Slack::Web::Client.new
-client.token = '1234'
-
-include Slack::BlockKit::ExecutionContext
-
-blocks = [
-  SectionBlock[text: Text[mrkdwn: [
+[ SectionBlock[text: Text[mrkdwn: [
     "You have a new request:",
     Bold[Link['google.com', 'Fred Enriquez - Time Off request']]
-  ]],
+  ]]],
   SectionBlock[
     text: Text[mrkdwn: [
       Bold['Type:'], 'Paid time off',
       Bold['When:'], 'Aug 10-Aug 13',
       "#{Bold['Hours:']} 16.0 (2 days)",
       "#{Bold['Remaining balance:']} 32.0 hours (4 days)",
-      "#{Bold['Comments:'] \"Family in town, going camping!\""
+      "#{Bold['Comments:']} \"Family in town, going camping!\""
     ]],
     accessory: ImageElement[
       image_url: "https://api.slack.com/img/blocks/bkb_template_images/approvalsNewDevice.png",
@@ -35,9 +26,3 @@ blocks = [
     ]
   ]]
 ]
-
-payload = {
-  channel: '#general',
-  blocks: blocks.map(&:to_h) }
-
-client.chat_postMessage(payload)

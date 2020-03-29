@@ -1,13 +1,4 @@
-require 'slack-ruby-client'
-require 'slack-block-kit'
-
-client = Slack::Web::Client.new
-client.token = '1234'
-
-include Slack::BlockKit::ExecutionContext
-
-blocks = [
-  SectionBlock[text: Text[mrkdwn: "#{Bold['Where should we order lunch from?']} Poll by #{Link['fakeLink.toUser.com', 'Mark']}"]],
+[ SectionBlock[text: Text[mrkdwn: "#{Bold['Where should we order lunch from?']} Poll by #{Link['fakeLink.toUser.com', 'Mark']}"]],
   DividerBlock[],
   SectionBlock[
     text: Text[mrkdwn: [
@@ -60,10 +51,3 @@ blocks = [
   DividerBlock[],
   ActionsBlock[elements: [ButtonElement[text: Text[plain_text: 'Add a suggestion', emoji: true], value: 'click_me_123']]]
 ]
-
-payload = {
-  channel: '#general',
-  blocks: blocks.map(&:to_h) }
-
-client.chat_postMessage(payload)
-

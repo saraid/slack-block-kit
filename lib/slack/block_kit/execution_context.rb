@@ -20,14 +20,22 @@ module Slack
     # This can be copied and pasted into https://api.slack.com/tools/block-kit-builder
     module ExecutionContext
       ActionsBlock = Block::ActionsBlock
-      SectionBlock = Block::SectionBlock
       ContextBlock = Block::ContextBlock
       DividerBlock = Block::DividerBlock
       ImageBlock = Block::ImageBlock
+      SectionBlock = Block::SectionBlock
+
+      ConfirmationDialog = CompositionObjects::ConfirmationDialog
+      Filter = CompositionObjects::Filter
+      Option = CompositionObjects::Option
+      OptionGroup = CompositionObjects::OptionGroup
       Text = CompositionObjects::Text
 
       ButtonElement = Element::ButtonElement
       ImageElement = Element::ImageElement
+      OverflowElement = Element::OverflowElement
+      ConversationsSelectElement = Element::ConversationsSelectElement
+      StaticSelectElement = Element::StaticSelectElement
 
       Bold = proc { |string| "*#{string}*" }
       Italic = proc { |string| "_#{string}_" }

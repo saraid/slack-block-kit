@@ -25,6 +25,10 @@ module Slack
       ImageBlock = Block::ImageBlock
       SectionBlock = Block::SectionBlock
 
+      def DividerBlock
+        DividerBlock[]
+      end
+
       ConfirmationDialog = CompositionObjects::ConfirmationDialog
       Filter = CompositionObjects::Filter
       Option = CompositionObjects::Option

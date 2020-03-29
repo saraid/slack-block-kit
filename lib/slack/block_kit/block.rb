@@ -15,8 +15,8 @@ module Slack
       end
 
       def block_id=(obj)
-        raise TypeError, 'block_id must be a string' unless block_id.respond_to?(:to_str)
-        raise RangeError, 'block_id must be max 255 characters' unless block_id.size <= 255
+        raise TypeError, 'block_id must be a string' unless obj.respond_to?(:to_str)
+        raise RangeError, 'block_id must be max 255 characters' unless obj.size <= 255
 
         @block_id = obj.to_s
       end

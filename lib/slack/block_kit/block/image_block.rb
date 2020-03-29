@@ -4,15 +4,13 @@ module Slack
   module BlockKit
     class Block
       class ImageBlock < Block
+        using Refinements::HashCompact
         attr_accessor :image_url, :alt_text, :title
 
-        def self.[](hash)
-          new.tap do |object|
-            object.image_url = hash[:image_url] if hash.key?(:image_url)
-            object.alt_text = hash[:alt_text] if hash.key?(:alt_text)
-            object.title = hash[:title] if hash.key?(:title)
-            object.block_id = hash[:block_id] if hash.key?(:block_id)
-          end
+        def self.populate(hash, object)
+          object.image_url = hash.fetch(:image_url)
+          object.alt_text = hash.fetch(:alt_text)
+          object.title = hash[:title] if hash.key?(:title)
         end
 
         def title=(obj)
@@ -38,7 +36,7 @@ module Slack
             image_url: image_url,
             alt_text: alt_text,
             title: title&.to_h
-          ).reject { |_, v| v.nil? || v.empty? }
+          ).compact
         end
       end
     end

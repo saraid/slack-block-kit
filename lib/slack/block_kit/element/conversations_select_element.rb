@@ -4,22 +4,18 @@ module Slack
   module BlockKit
     class Element
       class ConversationsSelectElement < SelectElement
+        using Refinements::HashCompact
         attr_reader :initial_conversation, :response_url_enabled, :filter
         attr_writer :initial_conversation
 
-        def self.[](hash)
-          new.tap do |object|
-            if hash.key?(:initial_conversation)
-              object.initial_conversation = hash[:initial_conversation]
-            end
-            object.response_url_enabled! if hash.key?(:response_url_enabled)
-            object.filter = hash[:filter] if hash.key?(:filter)
-
-            object.placeholder = hash.fetch(:placeholder)
-            object.confirm = hash[:confirm] if hash.key?(:confirm)
-
-            object.action_id = hash[:action_id] if hash.key?(:action_id)
+        def self.populate(hash, object)
+          if hash.key?(:initial_conversation)
+            object.initial_conversation = hash[:initial_conversation]
           end
+          object.response_url_enabled! if hash.key?(:response_url_enabled)
+          object.filter = hash[:filter] if hash.key?(:filter)
+
+          super(hash, object)
         end
 
         def response_url_enabled!
@@ -39,7 +35,7 @@ module Slack
             initial_conversation: initial_conversation,
             response_url_enabled: response_url_enabled,
             filter: filter&.to_h
-          ).reject { |_, v| v.nil? || v.empty? }
+          ).compact
         end
       end
     end

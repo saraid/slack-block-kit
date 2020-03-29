@@ -4,10 +4,12 @@ module Slack
   module BlockKit
     module CompositionObjects
       class Text
+        using Refinements::HashCompact
         attr_reader :type, :text, :emoji, :verbatim
 
         PLAINTEXT = :plain_text
         MRKDWN = :mrkdwn
+        NEWLINE = "\n"
 
         def self.[](hash)
           new.tap do |object|
@@ -39,8 +41,6 @@ module Slack
 
           @type = type.to_sym
         end
-
-        NEWLINE = "\n"
 
         def text=(text)
           text = text.join(NEWLINE) if text.is_a?(Array)

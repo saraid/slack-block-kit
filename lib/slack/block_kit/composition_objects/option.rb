@@ -4,6 +4,7 @@ module Slack
   module BlockKit
     module CompositionObjects
       class Option
+        using Refinements::HashCompact
         attr_reader :text, :value, :description, :url
 
         def self.[](hash)
@@ -48,7 +49,7 @@ module Slack
           { text: text.to_h,
             value: value,
             description: description&.to_h,
-            url: url }.reject { |_, v| v.nil? || v.empty? }
+            url: url }.compact
         end
       end
     end

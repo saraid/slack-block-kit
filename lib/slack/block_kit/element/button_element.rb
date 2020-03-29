@@ -4,19 +4,17 @@ module Slack
   module BlockKit
     class Element
       class ButtonElement < Element
+        using Refinements::HashCompact
         attr_reader :text, :style
         attr_accessor :value
 
-        def self.[](hash)
-          new.tap do |object|
-            object.text = hash.fetch(:text)
-            object.action_id = hash.fetch(:action_id) if hash[:action_id]
-            object.style = hash.fetch(:style) if hash[:style]
-            object.value = hash.fetch(:value) if hash[:value]
-            object.action_id = hash[:action_id] if hash.key?(:action_id)
+        def self.populate(hash, object)
+          object.text = hash.fetch(:text)
+          object.action_id = hash.fetch(:action_id) if hash[:action_id]
+          object.style = hash.fetch(:style) if hash[:style]
+          object.value = hash.fetch(:value) if hash[:value]
 
-            raise ArgumentError, 'invalid ButtonElement' unless object.valid?
-          end
+          super(hash, object)
         end
 
         def valid?

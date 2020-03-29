@@ -4,15 +4,15 @@ module Slack
   module BlockKit
     class Element
       class DatePickerElement < Element
+        using Refinements::HashCompact
         attr_reader :initial_date, :placeholder, :confirm
 
-        def self.[](hash)
-          new.tap do |object|
-            object.action_id = hash.fetch(:action_id) if hash[:action_id]
-            object.placeholder = hash.fetch(:placeholder) if hash[:placeholder]
-            object.confirm = hash.fetch(:confirm) if hash[:confirm]
-            object.initial_date = hash.fetch(:initial_date) if hash[:initial_date]
-          end
+        def self.populate(hash, object)
+          object.placeholder = hash.fetch(:placeholder) if hash[:placeholder]
+          object.confirm = hash.fetch(:confirm) if hash[:confirm]
+          object.initial_date = hash.fetch(:initial_date) if hash[:initial_date]
+
+          super(hash, object)
         end
 
         def type

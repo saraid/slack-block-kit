@@ -4,20 +4,15 @@ module Slack
   module BlockKit
     class Element
       class StaticSelectElement < SelectElement
+        using Refinements::HashCompact
         attr_reader :options, :option_groups, :initial_option
 
-        def self.[](hash)
-          new.tap do |object|
-            hash[:options].each(&object.options.method(:<<)) if hash.key?(:options)
-            hash[:option_groups].each(&object.option_groups.method(:<<)) if hash.key?(:option_groups)
-            object.initial_option = hash[:initial_option] if hash.key?(:initial_option)
+        def self.populate(hash, object)
+          hash[:options].each(&object.options.method(:<<)) if hash.key?(:options)
+          hash[:option_groups].each(&object.option_groups.method(:<<)) if hash.key?(:option_groups)
+          object.initial_option = hash[:initial_option] if hash.key?(:initial_option)
 
-            object.placeholder = hash.fetch(:placeholder)
-            object.confirm = hash[:confirm] if hash.key?(:confirm)
-
-            object.action_id = hash[:action_id] if hash.key?(:action_id)
-            raise ArgumentError, 'invalid StaticSelectElement' unless object.valid?
-          end
+          super(hash, object)
         end
 
         def initialize
@@ -43,7 +38,7 @@ module Slack
             options: options.map(&:to_h),
             option_groups: option_groups.map(&:to_h),
             initial_option: initial_option&.to_h
-          ).reject { |_, v| v.nil? || v.empty? }
+          ).compact
         end
       end
     end

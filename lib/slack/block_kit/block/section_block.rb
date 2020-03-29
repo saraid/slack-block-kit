@@ -4,17 +4,13 @@ module Slack
   module BlockKit
     class Block
       class SectionBlock < Block
+        using Refinements::HashCompact
         attr_reader :text, :fields, :accessory
 
-        def self.[](hash)
-          new.tap do |object|
-            object.accessory = hash[:accessory] if hash.key?(:accessory)
-            if hash.key?(:text) then object.text = hash[:text]
-            elsif hash.key?(:fields) then hash[:fields].each(&object.fields.method(:<<))
-            end
-            object.block_id = hash[:block_id] if hash.key?(:block_id)
-
-            raise ArgumentError, 'invalid SectionBlock' unless object.valid?
+        def self.populate(hash, object)
+          object.accessory = hash[:accessory] if hash.key?(:accessory)
+          if hash.key?(:text) then object.text = hash[:text]
+          elsif hash.key?(:fields) then hash[:fields].each(&object.fields.method(:<<))
           end
         end
 
@@ -51,7 +47,7 @@ module Slack
             text: text&.to_h,
             fields: fields.map(&:to_h),
             accessory: accessory&.to_h
-          ).reject { |_, v| v.nil? || v.empty? }
+          ).compact
         end
       end
     end

@@ -4,14 +4,15 @@ module Slack
   module BlockKit
     module CompositionObjects
       class ConfirmationDialog
+        using Refinements::HashCompact
         attr_reader :title, :text, :confirm, :deny
 
         def self.[](hash)
           new.tap do |object|
-            object.title = hash[:title] if hash.key?(:title)
-            object.text = hash[:text] if hash.key?(:text)
-            object.confirm = hash[:confirm] if hash.key?(:confirm)
-            object.deny = hash[:deny] if hash.key?(:deny)
+            object.title = hash.fetch(:title)
+            object.text = hash.fetch(:text)
+            object.confirm = hash.fetch(:confirm)
+            object.deny = hash.fetch(:deny)
           end
         end
 
@@ -50,7 +51,7 @@ module Slack
           { title: title.to_h,
             text: text.to_h,
             confirm: confirm.to_h,
-            deny: deny.to_h }.reject { |_, v| v.nil? || v.empty? }
+            deny: deny.to_h }.compact
         end
       end
     end

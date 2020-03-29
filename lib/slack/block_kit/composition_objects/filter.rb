@@ -4,6 +4,7 @@ module Slack
   module BlockKit
     module CompositionObjects
       class Filter
+        using Refinements::HashCompact
         attr_reader :include, :exclude_external_shared_channels, :exclude_bot_users
 
         def self.[](hash)
@@ -29,7 +30,7 @@ module Slack
         def to_h
           { include: self.include,
             exclude_external_shared_channels: exclude_external_shared_channels,
-            exclude_bot_users: exclude_bot_users }.select { |_, v| v }
+            exclude_bot_users: exclude_bot_users }.compact
         end
       end
     end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'block_kit/type_restricted_array'
+require_relative 'block_kit/refinements/hash_compact'
 
 require_relative 'block_kit/block'
 require_relative 'block_kit/block/actions_block'

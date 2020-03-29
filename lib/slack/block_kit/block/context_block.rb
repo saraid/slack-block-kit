@@ -4,15 +4,11 @@ module Slack
   module BlockKit
     class Block
       class ContextBlock < Block
+        using Refinements::HashCompact
         attr_accessor :elements
 
-        def self.[](hash)
-          new.tap do |object|
-            hash[:elements].each(&object.elements.method(:<<))
-            raise ArgumentError, 'invalid ContextBlock' unless object.valid?
-
-            object.block_id = hash[:block_id] if hash.key?(:block_id)
-          end
+        def self.populate(hash, object)
+          hash[:elements].each(&object.elements.method(:<<))
         end
 
         def initialize
@@ -26,7 +22,7 @@ module Slack
         def to_h
           super.merge(
             elements: elements.map(&:to_h)
-          ).reject { |_, v| v.nil? || v.empty? }
+          ).compact
         end
       end
     end

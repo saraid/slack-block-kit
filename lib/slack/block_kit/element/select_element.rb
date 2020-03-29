@@ -6,6 +6,13 @@ module Slack
       class SelectElement < Element
         attr_reader :placeholder, :confirm
 
+        def self.populate(hash, object)
+          object.placeholder = hash.fetch(:placeholder)
+          object.confirm = hash[:confirm] if hash.key?(:confirm)
+
+          super(hash, object)
+        end
+
         def valid?
           !(@placeholder.nil? || @placeholder.empty?)
         end

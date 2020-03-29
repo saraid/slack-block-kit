@@ -4,16 +4,14 @@ module Slack
   module BlockKit
     class Element
       class OverflowElement < Element
+        using Refinements::HashCompact
         attr_reader :options, :confirm
 
-        def self.[](hash)
-          new.tap do |object|
-            hash[:options].each(&object.options.method(:<<)) if hash.key?(:options)
-            object.confirm = hash.fetch(:confirm) if hash[:confirm]
-            object.action_id = hash.fetch(:action_id) if hash[:action_id]
+        def self.populate(hash, object)
+          hash[:options].each(&object.options.method(:<<)) if hash.key?(:options)
+          object.confirm = hash.fetch(:confirm) if hash[:confirm]
 
-            raise ArgumentError, 'invalid OverflowElement' unless object.valid?
-          end
+          super(hash, object)
         end
 
         def initialize

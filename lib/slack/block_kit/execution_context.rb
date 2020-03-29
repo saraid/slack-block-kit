@@ -36,7 +36,10 @@ module Slack
       ImageElement = Element::ImageElement
       OverflowElement = Element::OverflowElement
       ConversationsSelectElement = Element::ConversationsSelectElement
+      ChannelsSelectElement = Element::ChannelsSelectElement
+      ExternalSelectElement = Element::ExternalSelectElement
       StaticSelectElement = Element::StaticSelectElement
+      UsersSelectElement = Element::UsersSelectElement
 
       Bold = proc { |string| "*#{string}*" }
       Italic = proc { |string| "_#{string}_" }

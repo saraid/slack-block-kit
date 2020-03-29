@@ -5,7 +5,7 @@ module Slack
     class Element
       class ButtonElement < Element
         attr_reader :text
-        attr_accessor :action_id, :value
+        attr_accessor :action_id, :value, :style
 
         def self.[](hash)
           new.tap do |object|
@@ -29,6 +29,7 @@ module Slack
           super.merge(
             text: text.to_h,
             action_id: action_id,
+            style: style,
             value: value
           ).compact
         end

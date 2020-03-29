@@ -56,7 +56,7 @@ blocks =
 
 payload = {
   channel: '#general',
-  blocks: template.map(&:to_h) }
+  blocks: blocks.map(&:to_h) }
 
 client.chat_postMessage(payload)
 

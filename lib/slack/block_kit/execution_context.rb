@@ -53,11 +53,8 @@ module Slack
       Strike = proc { |string| "~#{string}~" }
       Code = proc { |string| "`#{string}`" }
       Link = proc { |link, label = nil| label.nil? || label.empty? ? link : "<#{link}|#{label}>" }
-
-      def self.test(data)
-        require 'json'
-        puts(JSON.pretty_generate(data.map(&:to_h).yield_self { |h| { blocks: h } }))
-      end
+      Emoji = proc { |string| ":#{string}:" }
+      CodeBlock = proc { |&block| [ '```', yield, '```' ].join(Text::NEWLINE) }
     end
   end
 end

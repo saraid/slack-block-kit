@@ -11,6 +11,7 @@ module Slack
           new.tap do |object|
             object.text = hash.fetch(:text)
             object.action_id = hash.fetch(:action_id) if hash[:action_id]
+            object.style = hash.fetch(:style) if hash[:style]
             object.value = hash.fetch(:value) if hash[:value]
           end
         end
@@ -23,6 +24,14 @@ module Slack
           raise TypeError, 'text must be a Text Object' unless obj.is_a?(CompositionObjects::Text)
 
           @text = obj
+        end
+
+        def style=(obj)
+          unless %i( default primary danger ).include?(obj.to_sym)
+            raise ArgumentError, 'style may only be default, primary, or danger'
+          end
+
+          @style = obj.to_sym
         end
 
         def to_h

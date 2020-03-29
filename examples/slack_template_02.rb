@@ -9,15 +9,21 @@ include Slack::BlockKit::ExecutionContext
 blocks = [
   SectionBlock[text: Text[mrkdwn: [
     "You have a new request:",
-    Bold[Link['fakeLink.toEmployeeProfile.com', 'Fred Enriquez - New device request']]
-  ]]],
-  SectionBlock[fields: [
-    Text[mrkdwn: [Bold['Type:'], 'Computer (laptop)']],
-    Text[mrkdwn: [Bold['When:'], 'Submitted Aut 10']],
-    Text[mrkdwn: [Bold['Last Update:'], 'Mar 10, 2015 (3 years, 5 months)']],
-    Text[mrkdwn: [Bold['Reason:'], "All vowel keys aren't working."]],
-    Text[mrkdwn: [Bold['Specs:'], '"Cheetah Pro 15" - Fast, really fast"']]
+    Bold[Link['google.com', 'Fred Enriquez - Time Off request']]
   ]],
+  SectionBlock[
+    text: Text[mrkdwn: [
+      Bold['Type:'], 'Paid time off',
+      Bold['When:'], 'Aug 10-Aug 13',
+      "#{Bold['Hours:']} 16.0 (2 days)",
+      "#{Bold['Remaining balance:']} 32.0 hours (4 days)",
+      "#{Bold['Comments:'] \"Family in town, going camping!\""
+    ]],
+    accessory: ImageElement[
+      image_url: "https://api.slack.com/img/blocks/bkb_template_images/approvalsNewDevice.png",
+      alt_text: "computer thumbnail"
+    ]
+  ],
   ActionsBlock[elements: [
     ButtonElement[
       text: Text[plain_text: 'Approve', emoji: true],
@@ -35,5 +41,3 @@ payload = {
   blocks: blocks.map(&:to_h) }
 
 client.chat_postMessage(payload)
-
-

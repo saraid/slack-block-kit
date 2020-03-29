@@ -20,7 +20,6 @@ module Slack
 
       # TODO: because i am lazy
       class FileBlock < Block; end
-      class ImageBlock < Block; end
       class InputBlock < Block; end
     end
   end
@@ -29,4 +28,5 @@ end
 require_relative 'block/actions_block'
 require_relative 'block/context_block'
 require_relative 'block/divider_block'
+require_relative 'block/image_block'
 require_relative 'block/section_block'

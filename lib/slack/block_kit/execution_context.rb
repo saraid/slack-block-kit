@@ -23,6 +23,7 @@ module Slack
       SectionBlock = Block::SectionBlock
       ContextBlock = Block::ContextBlock
       DividerBlock = Block::DividerBlock
+      ImageBlock = Block::ImageBlock
       Text = CompositionObjects::Text
 
       ButtonElement = Element::ButtonElement
@@ -32,7 +33,7 @@ module Slack
       Italic = proc { |string| "_#{string}_" }
       Strike = proc { |string| "~#{string}~" }
       Code = proc { |string| "`#{string}`" }
-      Link = proc { |link, label = nil| label.nil? || label.empty? ? "<#{link}|#{label}>" : link }
+      Link = proc { |link, label = nil| label.nil? || label.empty? ? link : "<#{link}|#{label}>" }
 
       def self.test(data)
         require 'json'
